@@ -1,0 +1,8 @@
+[package]
+name = "test_remover"
+version = "0.1.0"
+authors = ["ReturnedTrue"]
+
+[dependencies]
+serde = { version = "1.0.123", features = ["derive"] }
+toml = "0.5.8"
