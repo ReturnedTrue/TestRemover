@@ -1,0 +1,5 @@
+{
+    "out": "test-build",
+    "source": "test-source",
+    "test_ending": ".spec.lua"
+}
