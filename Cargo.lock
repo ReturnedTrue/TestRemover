@@ -207,20 +207,20 @@ dependencies = [
 ]
 
 [[package]]
-name = "test_remover"
-version = "0.1.0"
-dependencies = [
- "crossterm 0.18.2 (registry+https://github.com/rust-lang/crates.io-index)",
- "serde 1.0.123 (registry+https://github.com/rust-lang/crates.io-index)",
- "toml 0.5.8 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
 name = "toml"
 version = "0.5.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "serde 1.0.123 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[[package]]
+name = "trmv"
+version = "1.0.0"
+dependencies = [
+ "crossterm 0.18.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 1.0.123 (registry+https://github.com/rust-lang/crates.io-index)",
+ "toml 0.5.8 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]

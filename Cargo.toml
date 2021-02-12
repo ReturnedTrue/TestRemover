@@ -1,7 +1,15 @@
 [package]
-name = "test_remover"
-version = "0.1.0"
+name = "trmv"
+description = "Program to remove .spec.lua files in Roblox projects"
+version = "1.0.0"
+license = "MIT"
 authors = ["ReturnedTrue"]
+repository = "https://github.com/ReturnedTrue/TestRemover"
+include = [
+    "src/*",
+    "LICENSE.md",
+    "README.md"
+]
 
 [dependencies]
 serde = { version = "1.0.123", features = ["derive"] }
