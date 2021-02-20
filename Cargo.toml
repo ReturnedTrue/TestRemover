@@ -1,9 +1,12 @@
 [package]
 name = "trmv"
+version = "1.0.2" # Remember to change the constant!
 description = "Program to remove .spec.lua files in Roblox projects"
-version = "1.0.1"
-license = "MIT"
 authors = ["ReturnedTrue"]
+keywords = ["gamedev", "roblox", "TestEZ", "automation", "CLI"]
+categories = ["command-line-utilities", "game-development"]
+license-file = "LICENSE.md"
+readme = "README.md"
 repository = "https://github.com/ReturnedTrue/TestRemover"
 include = [
     "src/*",

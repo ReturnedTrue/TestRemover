@@ -139,30 +139,30 @@ pub fn copy_with_settings(settings: &Settings)
 
         let data = entry.metadata().unwrap();
 
-        if (!name.ends_with(&settings.test_ending))
-        {
-            if (data.is_file())
-            {
-                fs::copy(&path, &out_path).unwrap();
-
-                if (settings.verbose)
-                {
-                    output(OutputType::Verbose, format!("Copied {:?} to {:?}", &path, &out_path));
-                }
-            }
-            else
-            {
-                copy_with_settings(&Settings {
-                    source: path,
-                    out: out_path,
-                    test_ending: settings.test_ending.clone(),
-                    verbose: settings.verbose
-                })
-            }
-        }
-        else
+        if (name.ends_with(&settings.test_ending))
         {
             output(OutputType::Info, format!("Ignored {:?}", &path));
+            continue;
+        }
+
+        if (data.is_dir())
+        {
+            let next_settings = Settings {
+                source: path,
+                out: out_path,
+                test_ending: settings.test_ending.clone(),
+                verbose: settings.verbose
+            };
+
+            copy_with_settings(&next_settings);
+            continue;
+        }
+        
+        fs::copy(&path, &out_path).unwrap();
+
+        if (settings.verbose)
+        {
+            output(OutputType::Verbose, format!("Copied {:?} to {:?}", &path, &out_path));
         }
     }
 

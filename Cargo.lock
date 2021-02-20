@@ -269,7 +269,7 @@ dependencies = [
 
 [[package]]
 name = "trmv"
-version = "1.0.1"
+version = "1.0.2"
 dependencies = [
  "clap 2.33.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "crossterm 0.18.2 (registry+https://github.com/rust-lang/crates.io-index)",
