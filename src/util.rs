@@ -3,13 +3,24 @@
 // Crates
 extern crate serde;
 extern crate crossterm;
+extern crate clap;
 
 // Imports
 use self::serde::Deserialize;
 use self::crossterm::style::Colorize;
+use self::clap::{Arg, App};
 use std::path::Path;
 use std::fmt::Display;
 use std::fs;
+use crate::constants;
+
+// Enumerations
+pub enum OutputType
+{
+    Info,
+    Verbose,
+    Error
+}
 
 // Structures
 #[derive(Deserialize)]
@@ -29,11 +40,17 @@ pub struct Settings
     pub verbose: bool
 }
 
-pub enum OutputType
-{
-    Info,
-    Verbose,
-    Error
+// Implementations
+impl Configuration {
+    pub fn default() -> Configuration
+    {
+        return Configuration {
+            out: None,
+            source: None,
+            test_ending: None,
+            verbose: None
+        }
+    }
 }
 
 // Functions
@@ -54,17 +71,36 @@ pub fn assert(expression: bool, message: impl Display)
     }
 }
 
-pub fn config_exists(dir: &str) -> bool
+pub fn handle_flags() -> bool
+{
+    let matches = App::new("TestRemover (trmv)")
+        .version(constants::VERSION)
+        .arg(Arg::with_name("verbose")            
+            .help("Prints more information whilst running")
+            .short("v")
+            .long("verbose"))
+        .get_matches();
+    
+    return matches.is_present("verbose");
+}  
+
+pub fn read_config(dir: &str) -> Configuration
 {
     let path = Path::new(dir);
+    let mut config = Configuration::default();
 
     if (path.exists())
     {
-        return true;
+        let read_config = fs::read(dir).unwrap();
+
+        config = toml::from_slice(read_config.as_slice()).unwrap();
+    }
+    else
+    {
+        output(OutputType::Info, "No trmv.toml found, using defaulted settings.");
     }
 
-    output(OutputType::Info, "No trmv.config.toml found, using defaulted settings");
-    return false;
+    return config;
 }
 
 pub fn run_dir_checks(dir: &String, should_exist: bool)
@@ -90,7 +126,7 @@ pub fn copy_with_settings(settings: &Settings)
 
     if (settings.verbose) 
     {
-        output(OutputType::Verbose, format!("Entering \"{}\" to copy to \"{}\"", &settings.source, &settings.out));        
+        output(OutputType::Verbose, format!("Entering {:?} to copy to {:?}", &settings.source, &settings.out));        
     }
 
     for file in fs::read_dir(&settings.source).unwrap()
@@ -111,7 +147,7 @@ pub fn copy_with_settings(settings: &Settings)
 
                 if (settings.verbose)
                 {
-                    output(OutputType::Verbose, format!("Copied \"{}\" to \"{}\"", &path, &out_path));
+                    output(OutputType::Verbose, format!("Copied {:?} to {:?}", &path, &out_path));
                 }
             }
             else
@@ -126,12 +162,12 @@ pub fn copy_with_settings(settings: &Settings)
         }
         else
         {
-            output(OutputType::Info, format!("Ignored \"{}\"", &path));
+            output(OutputType::Info, format!("Ignored {:?}", &path));
         }
     }
 
     if (settings.verbose) 
     {
-        output(OutputType::Verbose, format!("Leaving directory \"{}\"", &settings.source));        
+        output(OutputType::Verbose, format!("Exiting directory {:?}", &settings.source));        
     }
 }

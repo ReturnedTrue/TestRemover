@@ -1,44 +1,31 @@
 #![allow(unused_parens)]
 
 // Modules
-mod lib;
+mod util;
 mod constants;
 
 // Crates
 extern crate toml;
 
 // Imports
-use lib::*;
+use util::*;
 use constants::*;
-use std::fs;
 use std::time::SystemTime;
 
 // Functions
 fn main() 
 {
+    let flag_verbose = handle_flags();
+
     output(OutputType::Info, "Program started");
     let time = SystemTime::now();
 
-    let settings: Settings;
-    let mut config = Configuration {
-        out: None,
-        source: None,
-        test_ending: None,
-        verbose: None
-    };
-
-    if (config_exists(CONFIGURATION_PATH))
-    {
-        let read_config = fs::read(CONFIGURATION_PATH).unwrap();
-
-        config = toml::from_slice(read_config.as_slice()).unwrap();
-    }
-
-    settings = Settings {
-        out: config.out.unwrap_or(String::from(OUT_DIRECTORY)),
-        source: config.source.unwrap_or(String::from(SOURCE_DIRECTORY)),
-        test_ending: config.test_ending.unwrap_or(String::from(TEST_ENDING)),
-        verbose: config.verbose.unwrap_or(IS_VERBOSE)
+    let config = read_config(CONFIGURATION_PATH);
+    let settings = Settings {
+        out: config.out.unwrap_or(OUT_DIRECTORY.to_string()),
+        source: config.source.unwrap_or(SOURCE_DIRECTORY.to_string()),
+        test_ending: config.test_ending.unwrap_or(TEST_ENDING.to_string()),
+        verbose: flag_verbose || config.verbose.unwrap_or(IS_VERBOSE)
     };
 
     run_dir_checks(&settings.out, false);

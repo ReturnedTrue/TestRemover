@@ -1,7 +1,12 @@
-// Constants
-pub const CONFIGURATION_PATH: &'static str = "trmv.toml";
+// Types
+type StaticStr = &'static str;
 
-pub const OUT_DIRECTORY: &'static str = "out";
-pub const SOURCE_DIRECTORY: &'static str = "source";
-pub const TEST_ENDING: &'static str = ".spec.lua";
+// Constants
+pub const CONFIGURATION_PATH: StaticStr = "trmv.toml";
+
+pub const OUT_DIRECTORY: StaticStr = "out";
+pub const SOURCE_DIRECTORY: StaticStr = "source";
+pub const TEST_ENDING: StaticStr = ".spec.lua";
 pub const IS_VERBOSE: bool = false;
+
+pub const VERSION: StaticStr = "1.0.1";
