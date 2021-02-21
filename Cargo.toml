@@ -1,6 +1,6 @@
 [package]
 name = "trmv"
-version = "1.0.2" # Remember to change the constant!
+version = "1.0.2" # Remember to change the constant and include (release) in the commit message!
 description = "Program to remove .spec.lua files in Roblox projects"
 authors = ["ReturnedTrue"]
 keywords = ["gamedev", "roblox", "TestEZ", "automation", "CLI"]

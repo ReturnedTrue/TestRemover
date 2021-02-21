@@ -2,15 +2,15 @@ name: Publisher
 
 on:
   push:
-    branches: [ master ]
     tags:
-      - "*"
+      - '*'
 
 env:
   CARGO_TERM_COLOR: always
 
 jobs:
   build:
+    if: contains(github.event.commits[0].message, '(release)') == true
     name: Publish for ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
 
