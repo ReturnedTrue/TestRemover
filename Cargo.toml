@@ -5,6 +5,7 @@ description = "Program to remove .spec.lua files in Roblox projects"
 authors = ["ReturnedTrue"]
 keywords = ["gamedev", "roblox", "TestEZ", "automation", "CLI"]
 categories = ["command-line-utilities", "game-development"]
+license = "MIT"
 license-file = "LICENSE.md"
 readme = "README.md"
 repository = "https://github.com/ReturnedTrue/TestRemover"
