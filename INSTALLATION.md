@@ -14,9 +14,9 @@ $ cargo install trmv
 # Option 3
 If you'd like another option, you can build TestRemover yourself with [git](https://git-scm.com/downloads) and [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html).
 
-First of all, fetch it from the repo:
+First of all, clone the repo:
 ```
-$ git fetch https://github.com/ReturnedTrue/TestRemover.git
+$ git clone https://github.com/ReturnedTrue/TestRemover.git
 ```
 
 
